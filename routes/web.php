@@ -12,5 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/about', function () {
+    $nama = 'Teddy Nanta';
+    return view('about', ['nama' => $nama]);
+});
+
+Route::get('/mahasiswa', function () {
+    return view('mahasiswa');
 });
