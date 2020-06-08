@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Student;
 use Illuminate\Http\Request;
 
+use function Ramsey\Uuid\v1;
+
 class StudentsController extends Controller
 {
     /**
@@ -65,7 +67,7 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students/edit', compact('student'));
     }
 
     /**
@@ -77,7 +79,21 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'required',
+            'univ' => 'required',
+            'jurusan' => 'required',
+            'email' => 'required'
+        ]);
+
+        Student::where('id', $student->id)
+            ->update([
+                'nama' => $request->nama,
+                'univ' => $request->univ,
+                'jurusan' => $request->jurusan,
+                'email' => $request->email
+            ]);
+        return redirect('/students')->with('status', 'Data succesfully updated!');
     }
 
     /**
@@ -88,6 +104,7 @@ class StudentsController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        Student::destroy($student->id);
+        return redirect('/students')->with('status', 'Data succesfully deleted!');
     }
 }

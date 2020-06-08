@@ -13,8 +13,12 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{$student->univ}}</h6>
                     <p class="card-text">{{$student->jurusan}}</p>
                     <p class="card-text">{{$student->email}}</p>
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a href="/students/{{$student->id}}/edit" class="btn btn-warning">Edit</a>
+                    <form action="{{$student->id}}" method="POST" class="d-inline">
+                        {{ method_field('DELETE')}}
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Delete</button>
+                    </form>
                     <a href="/students" class="card-link">&LeftArrow; back</a>
                 </div>
             </div>
